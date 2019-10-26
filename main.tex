@@ -33,7 +33,7 @@
 \usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
 
  
-\urlstyle{same}
+
 
 % Bibliography
 \usepackage[style=alphabetic,sorting=nyt,sortcites=true,autopunct=true,babel=hyphen,hyperref=true,abbreviate=false,backref=true,backend=biber]{biblatex}
@@ -58,7 +58,9 @@
 \def\d{\xrightarrow[] {d}}
 \def\p{\xrightarrow[] {P}}
 \def\PPT{\xrightarrow[P_\theta - \textit{п.н}] {P_\theta}}
+\def\PN{\xrightarrow[] {\textit{п.н}}}
 \def\PT{\xrightarrow[] {P}}
+\def\NP{\not\xrightarrow[] {P}}
 
 \newcommand{\cvx}{convex}
 \begin{document}
@@ -89,11 +91,11 @@
 
 %\noindent Copyright \copyright\ 2014 Andrea Hidalgo\\ % Copyright notice
 
-\noindent \textsc{Summer Research Internship, University of Western Ontario}\\
+\noindent \textsc{Лекционные записи, Московский физико-технический институт 2019}\\
 
-\noindent \textsc{github.com/LaurethTeX/Clustering}\\ % URL
+\noindent \textsc{github.com/eyoov/Applied-Statistics-2019-Notes-Fall}\\ % URL
 
-\noindent This research was done under the supervision of Dr. Pauline Barmby with the financial support of the MITACS Globalink Research Internship Award within a total of 12 weeks, from June 16th to September 5th of 2014.\\ % License information
+\noindent Данные лекционные записи, построены на основе курса "Прикладной Статистики" Н.Волкова и команды.  \\ % License information
 
 \noindent \textit{Версия 0.0.1 , Октябрь 2019} % Printing/edition date
 
@@ -216,7 +218,12 @@ $\hat{\theta_1}(x) = \overline{X}$ , $\hat{\theta_1}(x) = X_1$ - несмеще�
 \item Если $\xi_n \d \xi$ и $h: \mathbb{R}^d \rightarrow \mathbb{R}^k - $ непрерывная то $h(\xi_n) \d h(\xi)$
 \end{enumerate}
 \end{theorem}
-\begin{proof}[Доказательство \href{https://youtu.be/EL-V_0kWRoI?t=951}{Live}] 
+\begin{proof}(О наследование сходимости \href{https://youtu.be/EL-V_0kWRoI?t=951}{Live} ):  \\
+2. ($\xi_n \PN \xi$ и $h:\R^d \to \R^k$ непрерывна на множестве $B: P(\xi \in B) = 1$)\\ 
+$$\xi_n \PN \xi \Leftrightarrow P( \lim_{n \to \infty} \xi_n = \xi) = 1 \Rightarrow P(\lim_{n \to \infty} h(\xi_n) = h(\xi)) \geq P(\lim_{n\to \infty} \xi_n = \xi, \xi \in B) = 1$$
+1. ($\xi_n \PT \xi$ и $h:\R^d \to \R^k$ непрерывна на множестве $B: P(\xi \in B) = 1$)\\ 
+$$\xi_n \PT \xi \Leftrightarrow \forall \epsilon > 0: \underbrace{P(||h(\xi_n) - h(\xi)|| > \epsilon) \to 0}_{\forall \delta > 0 \s \exists N  \s \forall n > N \s :  \s P(||h(\xi_n) - h(\xi) || \s  > \s  \epsilon)  \s <  \s \delta} $$  Предположим то что $h(\xi_n) \NP h(\xi) \Leftrightarrow \exists \epsilon, \delta, \{\xi_{n_k}\}^{\infty}_{k = 1}: P(||h(\xi_{n_k}) - h(\xi) || > \epsilon) > \delta $,  заметим то что $\xi_{n_k} \PT \xi \Rightarrow \exists$ подпоследовательность $\{\xi_{n_{k_s}}\}^{\infty}_{s = 1} : \xi_{n_{k_s}} \PN \xi, \s s \to \infty, $ тогда по пункту 2.: получаем то что $h(\xi_{n_{k_s}}) \PN h(\xi) \Rightarrow h(\xi_{n_{k_s}}) \PT h(\xi)$. Получили противоречие. \\
+1. ($\xi_n \d \xi$ и $h:\R^d \to \R^k$ непрерывна)\\
 
 
 \end{proof}
@@ -265,9 +272,9 @@ $$\frac{h(a+\xi_nb_n) - h(a)}{b_n} = \frac{h(\t + \frac{1}{\sqrt{n}} \sqrt{n}(\H
 \end{proof}
 
 \begin{exa}[\href{https://youtu.be/EL-V_0kWRoI?t=504}{Live}] 
-Пусть $\X \sim \Exp(\t)$. Тогда из ЦПТ мы зныем: $$\sqrt{n}(\overline{X} - 1/\t) \DT \N(0,1/\t^2) \Rightarrow \overline{X} - \textit{а.н.о. } 1/\t  \textit{ с а.д. } 1/\t^2$$ применяем Дельта Метод (Теорема \ref{th_delta_method}) с функцией $\tau(x) = 1/x:$ $$\tau(\overline{X}) = 1/\overline{X} - \textit{а.н.о. } \tau{(1/\t)} = \t \textit{ с асип. диспе.: } 1/\t^2 \left( \left.\frac{\partial \tau}{\partial x}\right|_{1/\t} \right)^2 = \t^2$$ 
-
+Пусть $\X \sim \Exp(\t)$. Тогда из ЦПТ мы зныем: $$\sqrt{n}(\overline{X} - 1/\t) \DT \N(0,1/\t^2) \Rightarrow \overline{X} - \textit{а.н.о. } 1/\t  \textit{ с а.д. } 1/\t^2$$ применяем Дельта Метод (Теорема \ref{th_delta_method}) с функцией $\tau(x) = 1/x:$ $$\tau(\overline{X}) = 1/\overline{X} - \textit{а.н.о. } \tau{(1/\t)} = \t \textit{ с асип. диспе.: } 1/\t^2 \left( \left.\frac{\partial \tau}{\partial x}\right|_{1/\t} \right)^2 = \t^2$$
 \end{exa}
+
 
 
 
